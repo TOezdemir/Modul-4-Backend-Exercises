@@ -19,7 +19,7 @@ function App() {
     <h1>Hey!</h1>
     {starshipData.map((starship) => (
       <div key={starship.id}>
-        <img src={starship.img} alt={starship.name} />
+        <img src={"http://localhost:3000"+starship.img} alt={starship.name} />
         <h3>{starship.name}</h3>
       </div>
     ))}

@@ -7,8 +7,9 @@ import path from 'path'
 const app = express()
 const port = 3000
 app.use(cors())
-app.use(express.static(path.join(__dirname, "public")))
+app.use(express.static("public"))
 
+console.log(__dirname)
 
 const starships: IStarship[] = [
     {
