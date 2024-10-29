@@ -1,0 +1,6 @@
+SELECT * FROM Customers WHERE CustomerName LIKE 'A%';
+SELECT * FROM Customers Order By PostalCode DESC
+SELECT * FROM Customers WHERE Country = 'Mexico' ORDER BY City ASC, CustomerName ASC
+SELECT * FROM Customers WHERE Country IN ('Germany', 'United Kingdom', 'France')
+SELECT * FROM Products WHERE Unit LIKE '%bottles'
+SELECT * FROM Products WHERE Price BETWEEN 20 AND 30
