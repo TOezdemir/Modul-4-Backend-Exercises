@@ -4,3 +4,4 @@ SELECT * FROM Customers WHERE Country = 'Mexico' ORDER BY City ASC, CustomerName
 SELECT * FROM Customers WHERE Country IN ('Germany', 'United Kingdom', 'France')
 SELECT * FROM Products WHERE Unit LIKE '%bottles'
 SELECT * FROM Products WHERE Price BETWEEN 20 AND 30
+SELECT CategoryID, COUNT(*) FROM Products GROUP BY CategoryID;
