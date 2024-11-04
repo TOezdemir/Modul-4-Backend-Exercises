@@ -1,6 +1,6 @@
 import Header from "./components/Header"
 import Hero from "./components/Hero"
-import FeaturedRecipes from "./components/FeaturedRecipies"
+import FeaturedRecipes from "./components/FeaturedRecipes"
 import Footer from "./components/Footer"
 import { useEffect, useState } from "react"
 import { supabase } from "./lib/supabaseClient"
@@ -14,16 +14,6 @@ const getAllRecipes = async () =>{
   console.log("Response:",{result})
   return result
 }
-
-// type Recipes = {
-//   category_id: string;
-//   created_at: string;
-//   description: string;
-//   id: string;
-//   instructions: string;
-//   name: string;
-//   servings: number;
-// }[] | null
 
 type GetAllRecipesData = QueryData<ReturnType<typeof getAllRecipes>>
 
