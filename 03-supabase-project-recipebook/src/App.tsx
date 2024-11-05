@@ -1,16 +1,43 @@
-import Header from "./components/Header"
-import Hero from "./components/Hero"
 import FeaturedRecipes from "./components/FeaturedRecipes"
-import Footer from "./components/Footer"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import Recipes from "./pages/Recipes"
+import Home from "./pages/Home"
+import DetailPage from "./pages/DetailPage"
+import Layout from "./components/Layout"
+import AboutMe from "./pages/AboutMe"
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "/", element: <Home /> },
+      {
+        path: "/rezept/:id",
+        element: <Recipes />,
+      },
+      {
+        path: "/recept/:id",
+        element: <DetailPage />,
+      },
+      {
+        path: "/ausgewaehlte-rezepte",
+        element: <FeaturedRecipes />,
+      },
+      {
+        path: "/ueber-mich",
+        element: <AboutMe />,
+      },
+    ],
+  },
+]);
 
 function App() {
 
   return (
     <div>
-      <Header/>
-      <Hero/>
-      <FeaturedRecipes/>
-      <Footer/>
+      <RouterProvider router={router}/>
     </div>
   )
 }
