@@ -5,6 +5,7 @@ import Home from "./pages/Home"
 import DetailPage from "./pages/DetailPage"
 import Layout from "./components/Layout"
 import AboutMe from "./pages/AboutMe"
+import Login from "./pages/Login"
 
 
 const router = createBrowserRouter([
@@ -14,11 +15,11 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       {
-        path: "/rezept/:id",
+        path: "/rezepte",
         element: <Recipes />,
       },
       {
-        path: "/recept/:id",
+        path: "/recipes/:id",
         element: <DetailPage />,
       },
       {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/ueber-mich",
         element: <AboutMe />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
   },

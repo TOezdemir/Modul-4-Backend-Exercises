@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 import type { QueryData } from "@supabase/supabase-js";
+import FeaturedRecipes from "../components/FeaturedRecipes";
 
 const getAllRecipes = async () =>{
     const result = await supabase
@@ -23,6 +24,8 @@ export default function Recipes(){
     }, []);
   
     return(
+      <>
+        <FeaturedRecipes/>
         <div className="container mx-auto py-12">
         <h2 className="text-3xl font-bold mb-8 text-center">
           Rezepte:
@@ -52,5 +55,6 @@ export default function Recipes(){
           ))}
         </div>
       </div>
+      </>
     );
 }
