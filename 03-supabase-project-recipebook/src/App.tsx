@@ -1,4 +1,4 @@
-import FeaturedRecipes from "./components/FeaturedRecipes"
+// import FeaturedRecipes from "./components/FeaturedRecipes"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Recipes from "./pages/Recipes"
 import Home from "./pages/Home"
@@ -22,10 +22,10 @@ const router = createBrowserRouter([
         path: "/recipes/:id",
         element: <DetailPage />,
       },
-      {
-        path: "/ausgewaehlte-rezepte",
-        element: <FeaturedRecipes />,
-      },
+      // {
+      //   path: "/ausgewaehlte-rezepte",
+      //   element: <FeaturedRecipes />,
+      // },
       {
         path: "/ueber-mich",
         element: <AboutMe />,
