@@ -9,6 +9,7 @@ export default function Footer(){
         </NavLink>
 
         <nav className="social_media">
+          {/* Bildpfade klären! public dir! */}
           <a href="">
             <img src="../img/pages.png" alt="Instagram" />
           </a>

@@ -21,15 +21,11 @@ const router = createBrowserRouter([
         element: <Recipes />,
       },
       {
-        path: "/recipes/:id",
+        path: "/rezept/:id",
         element: <DetailPage />,
       },
-      // {
-      //   path: "/ausgewaehlte-rezepte",
-      //   element: <FeaturedRecipes />,
-      // },
       {
-        path: "/ueber-mich",
+        path: "/ueber-die-seite",
         element: <AboutMe />,
       },
       {
