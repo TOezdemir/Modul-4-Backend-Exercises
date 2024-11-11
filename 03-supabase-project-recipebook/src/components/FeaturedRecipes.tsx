@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 import type { QueryData } from "@supabase/supabase-js";
+import { Link } from "react-router-dom";
+import slugify from "slugify";
 
 
 const getFeaturedRecipes = async () => {
@@ -80,9 +82,9 @@ export default function FeaturedRecipes() {
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-2">{recipe.name}</h3>
               <p className="text-black">{recipe.description_short}</p>
-              <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4">
+              <Link to={`/rezept/${slugify(recipe.name, {lower: true})}/${recipe.id}`} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4">
                 Zum Rezept
-              </button>
+              </Link>
             </div>
           </div>
         ))}
