@@ -69,7 +69,8 @@ export type Database = {
         Row: {
           category_id: string
           created_at: string
-          description: string
+          description_long: string | null
+          description_short: string
           id: string
           image_url: string | null
           instructions: string
@@ -80,7 +81,8 @@ export type Database = {
         Insert: {
           category_id: string
           created_at?: string
-          description: string
+          description_long?: string | null
+          description_short: string
           id?: string
           image_url?: string | null
           instructions: string
@@ -91,7 +93,8 @@ export type Database = {
         Update: {
           category_id?: string
           created_at?: string
-          description?: string
+          description_long?: string | null
+          description_short?: string
           id?: string
           image_url?: string | null
           instructions?: string
@@ -114,7 +117,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_random_recipes: {
+        Args: {
+          limit_param: number
+        }
+        Returns: {
+          id: string
+          description_short: string
+          name: string
+          image_url: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

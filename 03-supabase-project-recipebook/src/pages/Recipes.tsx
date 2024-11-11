@@ -34,7 +34,7 @@ export default function Recipes(){
           {recipes.map((recipe) => (
             <div
               key={recipe.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden"
+              className="bg-neutral-100 rounded-lg shadow-md overflow-hidden"
             >
               {/* && fragt nur nach Wahrheit ab - benötigt keinen "else" */}
               {recipe.image_url && 
@@ -46,7 +46,7 @@ export default function Recipes(){
               
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{recipe.name}</h3>
-                <p className="text-gray-600">{recipe.description}</p>
+                <p className="text-black">{recipe.description_short}</p>
                 <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4">
                   Zum Rezept
                 </button>

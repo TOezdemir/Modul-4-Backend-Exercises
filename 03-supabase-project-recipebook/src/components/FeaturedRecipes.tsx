@@ -2,13 +2,50 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 import type { QueryData } from "@supabase/supabase-js";
 
+
 const getFeaturedRecipes = async () => {
   const result = await supabase
+  // Hier einen Randomizer einsetzen!
     .from("recipes")
-    .select("id, description, name, image_url")
-    .limit(3);
+    .select("id, description_short, name, image_url")
+    .limit(3)
+    // .order('RAMDOM()')
   return result
-};
+}
+
+// * Das hier und die folgenden benötigen einen anderen Typen im Promise? Meh...
+// const getFeaturedRecipes = async (): Promise<{data: Recipe[]; error: any}> =>{
+//   const {data, error} = await supabase
+//   .rpc("get_random_recipes", {limit_param: 3})
+//   if(error){
+//     console.error("Error fecthing featured recipes:", error)
+//     return null
+//   }
+//   return data
+// }
+
+// const get getFeaturedRecipe = async () =>{
+  // const { data, error } = await supabase
+  //     .from('recipes')
+  //     .select('id, description_short, name, image_url')
+  //     .order('id', { ascending: false}) 
+  //     .limit(3)
+  //     .order('RANDOM()'); 
+  //   if (error) {
+  //     console.error('Error fetching featured recipes:', error);
+  //   return null; 
+  // }
+  // return data;
+// }
+
+// const getFeaturedRecipes = async () =>{
+//   const result = await supabase
+//   .from("recipes")
+//   .select("id, description_short, name, image_url")
+  
+//   const shuffledRecipes = result.data!.sort(()=> 0.5 - Math.random())
+//   return shuffledRecipes.slice(0,3)
+// }
 
 type GetFeaturedRecipesData = QueryData<ReturnType<typeof getFeaturedRecipes>>
 
@@ -17,7 +54,7 @@ export default function FeaturedRecipes() {
 
   useEffect(() => {
     getFeaturedRecipes().then((result) => {
-      setRecipes(result.data ?? []);
+      setRecipes(result?.data ?? []);
     });
   }, []);
 
@@ -27,11 +64,10 @@ export default function FeaturedRecipes() {
         Ausgewählte Rezepte:
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* HIER SPÄTER EINEN RANDOMIZER REIN*/}
         {recipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="bg-white rounded-lg shadow-md overflow-hidden"
+            className="bg-neutral-100 rounded-lg shadow-md overflow-hidden"
           >
             {/* && fragt nur nach Wahrheit ab - benötigt keinen "else" */}
             {recipe.image_url && 
@@ -43,7 +79,7 @@ export default function FeaturedRecipes() {
             
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-2">{recipe.name}</h3>
-              <p className="text-gray-600">{recipe.description}</p>
+              <p className="text-black">{recipe.description_short}</p>
               <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4">
                 Zum Rezept
               </button>
