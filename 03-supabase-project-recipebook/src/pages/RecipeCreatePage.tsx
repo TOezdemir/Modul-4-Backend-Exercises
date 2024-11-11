@@ -1,110 +1,170 @@
-import { useState } from "react"
-import { supabase } from "../lib/supabaseClient"
+import { useState } from "react";
+import { produce } from "immer";
+import { useNavigate } from "react-router-dom";
+import slugify from "slugify";
+import { supabase } from "../lib/supabaseClient";
 
 type Ingredient = {
-    name: string,
-    unit: string,
-    quantity: string,
-    additionalInfo: string
-}
+  name: string;
+  unit: string;
+  quantity: number;
+  additionalInfo: string;
+};
 
-const emptyIngredientObject: Ingredient = {
+const emptyIngredient: Ingredient = {
+  name: "",
+  unit: "",
+  quantity: 0,
+  additionalInfo: "",
+};
+
+export default function RecipeCreatePage() {
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [recipe, setRecipe] = useState({
     name: "",
-    unit: "",
-    quantity: "",
-    additionalInfo: ""
+    description_long: "",
+    servings: 2,
+    instructions: "",
+  });
 
-}
+  const navigate  = useNavigate()
 
-export default function RecipeCreatePage(){
-    const [recipe, setRecipe] = useState({
-        name: "",
-        description: "",
-        servings: 1,
-        instructions: "",
-        category_id: "",
-    })
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    const [ingredients, setIngredients] = useState<Ingredient[]>([])
+    const recipeResult = await supabase
+      .from("recipes")
+      .insert({
+        ...recipe,
+        description_short: "",
+        category_id: "9dac3077-02b6-4769-80ed-2420ef73b04f"
+      })
+      .select("id")
+      .single();
 
-    const handleAddIngredientClick = () =>{
-        setIngredients((oldIngredients) =>[...oldIngredients, emptyIngredientObject])
+    if (recipeResult.error) {
+      alert("Something went wrong");
+      return;
     }
 
-    const handleSubmit = async (e: React.FormEvent) =>{
-        e.preventDefault()
+    const newRecipeId = recipeResult.data.id;
 
-        const recipeResult = await supabase
-            .from("recipes")
-            .insert({
-                ...recipe,
-                category_id: ""
-            })
-            .select("id")
-            .single()
-        
-        if(recipeResult.error){
-            alert("Something went wrong!")
-            return
-        }
+    const ingredientsResult = await supabase.from("ingredients").insert(
+      ingredients.map((element) => ({
+        name: element.name,
+        additional_info: element.additionalInfo,
+        unit: element.unit,
+        quantity: 0,
+        recipe_id: newRecipeId,
+      }))
+    );
 
-        const newRecipeId = recipeResult.data?.id
-        
-        const ingredientsResult = await supabase.from("ingredients").insert(
-            ingredients.map((element)=>({
-                name: element.name,
-                additional_info: element.additionalInfo,
-                unit: element.unit,
-                quantity: 0,
-                recipe_id: newRecipeId,
-            }))
-        )
-
-        if(ingredientsResult.error){
-            alert("Sorry, no Ingredients found!")
-            return
-        }
+    if (ingredientsResult.error) {
+      alert("Sorry, no Ingredients for you!");
+      return;
     }
+    // navigate to homepage if recipe insertion was successfull
+    navigate(`/recipes/${slugify(recipe.name, {lower: true})}/${newRecipeId}`)
+  };
 
+  const addIngredient = () => {
+    setIngredients((prev) => [...prev, emptyIngredient]);
+  };
+  console.log(ingredients);
 
-    return(
-        <>
-        <h1>Rezept hinzufügen:</h1>
-        <button onClick={handleSubmit}>Submit</button>
-        {/* <input type="text" name="" id="" value={recipe.name} onChange={(e)=>{setRecipe({...recipe, name: e.target.value})}}/> */}
-        <input type="text" name="" id="" value={recipe.name} onChange={(e)=>{setRecipe((old)=>({...old, name: e.target.value}))}}/>
-        <br />
-        <input type="text" name="" id="" value={recipe.description} onChange={(e)=>{setRecipe((old)=>({...old, description: e.target.value}))}}/>
-        <br />
-        <input type="text" name="" id="" value={recipe.servings} onChange={(e)=>{setRecipe((old)=>({...old, servings: Number(e.target.value)}))}}/>
-        <br />
-        <input type="text" name="" id="" value={recipe.instructions} onChange={(e)=>{setRecipe((old)=>({...old, instructions: e.target.value}))}}/>
-        <br />
-        <input type="text" name="" id="" value={recipe.category_id} onChange={(e)=>{setRecipe((old)=>({...old, category_id: e.target.value}))}}/>
-        <br />
-        <button onClick={handleAddIngredientClick}>Zutaten hinzufügen:</button>
-        <br />
-        <br />
+  return (
+    <form onSubmit={handleSubmit}>
+      <h1>New Recipe</h1>
+      <button>Submit</button>
+      <br />
+      <br />
+      <input
+        type="text"
+        value={recipe.name}
+        required
+        onChange={(e) =>
+          setRecipe((prev) => ({ ...prev, name: e.target.value }))
+        }
+        placeholder="name"
+      />
+      <br />
+      <input
+        type="text"
+        value={recipe.description_long}
+        onChange={(e) =>
+          setRecipe((prev) => ({ ...prev, description: e.target.value }))
+        }
+        placeholder="description"
+      />
+      <br />
+      <input
+        type="text"
+        value={recipe.instructions}
+        onChange={(e) =>
+          setRecipe((prev) => ({ ...prev, instructions: e.target.value }))
+        }
+        placeholder="instructions"
+      />
+      <br />
+      <input
+        type="number"
+        value={recipe.servings}
+        onChange={(e) =>
+          setRecipe((prev) => ({ ...prev, servings: Number(e.target.value) }))
+        }
+        placeholder="servings"
+      />
+      <br />
+      <div>
+        <h3>Ingredients</h3>
+        <button type="button" onClick={addIngredient}>
+          Add Ingredient
+        </button>
         <div>
-            {ingredients.map((ingredient, index)=>{
-            return(
-                <div key={index}>
-                    <input type="text" placeholder="Name" value={ingredient.name} onChange={(e)=>{
-                        setIngredients((oldIngredients)=>{
-                            const currentIngredient = oldIngredients[index]
-                            const newIngredient = {...currentIngredient, name: e.target.value}
-                            const prev = oldIngredients.slice(0, index)
-                            const after = oldIngredients.slice(index + 1)
-                            const newIngredients = {...prev, newIngredient, ...after, name: e.target.value}
-                            return newIngredients
-                        })}}/>
-                    <input type="text" placeholder="Einheit" value={ingredient.unit} />
-                    <input type="number" placeholder="Quantity" value={ingredient.quantity}/>
-                    <input type="text" placeholder="additional_info" value={ingredient.additionalInfo}/>
-                </div>
-            )
-            })}
+          {ingredients.map((ingredient, index) => {
+            return (
+              <div key={index}>
+                <input
+                  type="text"
+                  value={ingredient.name}
+                  onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
+                    ingredientsDraft[index].name = e.target.value
+                  })))
+                  }
+                  placeholder="name"
+                />
+                <input
+                  type="text"
+                  value={ingredient.unit}
+                  onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
+                    ingredientsDraft[index].unit = e.target.value
+                  })))
+                  }
+                  placeholder="unit"
+                />
+                <input
+                  type="number"
+                  value={ingredient.quantity}
+                  onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
+                    ingredientsDraft[index].quantity = Number(e.target.value)
+                  })))
+                  }
+                  placeholder="quantity"
+                />
+                <input
+                  type="text"
+                  value={ingredient.additionalInfo}
+                  onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
+                    ingredientsDraft[index].additionalInfo = e.target.value
+                  })))
+                  }
+                  placeholder="additionalInfo"
+                />
+              </div>
+            );
+          })}
         </div>
-        </>
-    )
+      </div>
+    </form>
+  );
 }

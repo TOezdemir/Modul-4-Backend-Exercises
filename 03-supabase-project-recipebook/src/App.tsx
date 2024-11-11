@@ -6,6 +6,7 @@ import DetailPage from "./pages/DetailPage"
 import Layout from "./components/Layout"
 import AboutMe from "./pages/AboutMe"
 import Login from "./pages/Login"
+import RecipeCreatePage from "./pages/RecipeCreatePage"
 
 
 const router = createBrowserRouter([
@@ -21,12 +22,16 @@ const router = createBrowserRouter([
         element: <Recipes />,
       },
       {
-        path: "/rezept/:_name/:id",
+        path: "/rezept/:name/:id",
         element: <DetailPage />,
       },
       {
         path: "/ueber-die-seite",
         element: <AboutMe />,
+      },
+      {
+        path: "/neues-rezept-anlegen",
+        element: <RecipeCreatePage />,
       },
       {
         path: "/login",

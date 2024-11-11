@@ -14,7 +14,7 @@ const getAllRecipes = async () =>{
     return result
   }
   
-type GetAllRecipesData = QueryData<ReturnType<typeof getAllRecipes>>
+  type GetAllRecipesData = QueryData<ReturnType<typeof getAllRecipes>>
   
 export default function Recipes(){
     const [recipes, setRecipes] = useState<GetAllRecipesData>([])
@@ -49,9 +49,10 @@ export default function Recipes(){
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{recipe.name}</h3>
                 <p className="text-black">{recipe.description_short}</p>
-                <Link to={`/rezept/${slugify(recipe.name, {lower: true})}:${recipe.id}`} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4">
+                <Link to={`/rezept/${slugify(recipe.name, {lower: true})}/${recipe.id}`} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4">
                   Zum Rezept
                 </Link>
+                {/* {isOwnArticle && <button onClick={handDeleteClick} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4">Entfernen</button>} */}
               </div>
             </div>
           ))}
