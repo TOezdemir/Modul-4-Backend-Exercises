@@ -1,31 +1,31 @@
 import { NavLink } from "react-router-dom"
+import { SocialIcon } from "react-social-icons";
 
-export default function Footer(){
-    return(
-        <footer>
+export default function Footer() {
+  return (
+    <footer className="bg-yellow-400 py-8">
+      <div className="container mx-auto flex justify-between items-center">
 
-        <NavLink to="/">
-          <img src="../img/Icon.png" alt="Logo" /> <h1>Krasse Idee hier.</h1>
+        <NavLink to="/" className="flex items-center">
+          <img src="../img/Icon.png" alt="Logo" className="h-8 mr-2" />
+          <span className="font-bold text-xl">WG Rezepte</span>
         </NavLink>
 
-        <nav className="social_media">
-          {/* Bildpfade klären! public dir! */}
-          <a href="">
-            <img src="../img/pages.png" alt="Instagram" />
-          </a>
-          <a href="">
-            <img src="../img/youtube.png" alt="YouTube" />
-          </a>
-          <a href="">
-            <img src="../img/threads.png" alt="Meta Threads" />
-          </a>
-          <a href="../img/pinterest.png">
-            <img src="" alt="pinterest" />
-          </a>
-        </nav>
-
-        <NavLink to="/Login">Login</NavLink>
-        
-      </footer>
-    )
+        <div className="flex flex-col">
+          <span className="font-bold text-gray-800 mb-4">Social Media</span>
+          <nav className="flex space-x-6">
+            <a href="https://www.instagram.com/" target="_blank">
+              <SocialIcon url="https://www.instagram.com/" aria-label="Instagram" className="h-6" />
+            </a>
+            <a href="https://www.youtube.com/" target="_blank">
+              <SocialIcon url="https://www.youtube.com/" aria-label="YouTube" className="h-6" />
+            </a>
+            <a href="https://www.threads.net/?hl=de" target="_blank">
+              <SocialIcon url="https://www.threads.net/?hl=de" aria-label="Meta Threads" className="h-6" />
+            </a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  );
 }
