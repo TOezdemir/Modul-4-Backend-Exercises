@@ -9,7 +9,7 @@ export default function Layout(){
         <div className="min-h-screen flex flex-col">
         <Header/>
         <Hero/>
-        <div className="flex-1">
+        <div className="container mx-auto flex-1">
           <Outlet/>  
         </div>
         <Footer/>

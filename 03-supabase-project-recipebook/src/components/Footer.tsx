@@ -3,8 +3,8 @@ import { SocialIcon } from "react-social-icons";
 
 export default function Footer() {
   return (
-    <footer className="bg-yellow-400 h-48 py-8 px-60 flex flex-col items-center justify-center">
-      <div className="container mx-auto flex justify-between items-center mb-4">
+    <footer className="bg-yellow-400 h-48 py-8 flex flex-col items-center justify-center">
+      <div className="container px-60 mx-auto flex justify-between items-center mb-4">
 
         <NavLink to="/" className="flex items-center">
           <img src="../img/Icon.png" alt="Logo" className="h-8 mr-2" />
