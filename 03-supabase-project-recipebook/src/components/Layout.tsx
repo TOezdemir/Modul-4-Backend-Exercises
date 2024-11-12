@@ -6,11 +6,13 @@ import { Outlet } from "react-router-dom"
 
 export default function Layout(){
     return(
-        <>
+        <div className="min-h-screen flex flex-col">
         <Header/>
         <Hero/>
-        <Outlet/>
+        <div className="flex-1">
+          <Outlet/>  
+        </div>
         <Footer/>
-        </>
+        </div>
     )
 }

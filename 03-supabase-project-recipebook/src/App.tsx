@@ -7,6 +7,7 @@ import Layout from "./components/Layout"
 import AboutMe from "./pages/AboutMe"
 import Login from "./pages/Login"
 import RecipeCreatePage from "./pages/RecipeCreatePage"
+import { UserContextProvider } from "./context/userContext"
 
 
 const router = createBrowserRouter([
@@ -45,7 +46,9 @@ function App() {
 
   return (
     <div>
+      <UserContextProvider>
       <RouterProvider router={router}/>
+      </UserContextProvider>
     </div>
   )
 }
