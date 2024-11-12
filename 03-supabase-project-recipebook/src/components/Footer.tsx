@@ -7,8 +7,8 @@ export default function Footer() {
       <div className="container px-60 mx-auto flex justify-between items-center mb-4">
 
         <NavLink to="/" className="flex items-center">
-          <img src="../img/Icon.png" alt="Logo" className="h-8 mr-2" />
-          <span className="font-normal text-4xl">WG Rezepte</span>
+          {/* <img src="../img/Icon.png" alt="Logo" className="h-8 mr-2" /> */}
+          <span className="font-normal text-4xl">WG: Rezepte</span>
         </NavLink>
 
         <div className="flex flex-col">
