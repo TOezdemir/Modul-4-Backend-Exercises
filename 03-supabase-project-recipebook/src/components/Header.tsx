@@ -12,7 +12,7 @@ export default function Header(){
     return(
       <header className="relative">
         <div className="bg-yellow-400 h-8 absolute top-0 left-0 w-full"></div>
-          <div className="container mx-auto py-14 flex items-center justify-between">
+          <div className="container mx-auto py-14 flex items-center justify-between px-60">
             <NavLink to="/" className="flex items-center">
               <img src="../img/Icon.png" alt="Logo" className="h-8 mr-2" /> 
               <span className="font-bold text-xl">WG Rezepte</span>
