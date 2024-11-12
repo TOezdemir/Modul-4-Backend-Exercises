@@ -70,7 +70,7 @@ export default function FeaturedRecipes() {
         {recipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="bg-neutral-100 rounded-lg shadow-md overflow-hidden"
+            className="bg-neutral-100 rounded-lg shadow-md overflow-hidden relative"
           >
             {/* && fragt nur nach Wahrheit ab - benötigt keinen "else" */}
             {recipe.image_url && 
@@ -83,10 +83,12 @@ export default function FeaturedRecipes() {
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-2">{recipe.name}</h3>
               <p className="text-black">{recipe.description_short}</p>
-              <Link to={`/rezept/${slugify(recipe.name, {lower: true})}/${recipe.id}`} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4">
+              <Link 
+              to={`/rezept/${slugify(recipe.name, {lower: true})}/${recipe.id}`} 
+              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4 absolute bottom-4 left-4"
+              >
                 Zum Rezept
               </Link>
-              {/* {isOwnArticle && <button onClick={handDeleteClick} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4">Entfernen</button>} */}
             </div>
           </div>
         ))}

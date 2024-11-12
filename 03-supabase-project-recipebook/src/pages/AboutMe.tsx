@@ -4,16 +4,20 @@
 export default function AboutMe(){
     return(
         <>
-        <article>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla libero placeat consequuntur sint ipsum eaque enim molestias nemo, fugit natus.</p>
+        <article className="font-light text-xl my-16">
+            <h1>Willkommen auf meiner persönlichen Rezeptsammlung!</h1>
             <br />
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores esse, omnis neque hic error iure harum ea voluptates, ratione perspiciatis ad qui maxime, tenetur accusamus sequi reprehenderit unde consequuntur ut modi magnam. Placeat officiis sequi nesciunt maxime, odit illum aspernatur nostrum culpa repellendus, commodi fugit sed animi id iste tempore?</p>
+            <p>Diese Webseite entstand, weil meine Freunde mich ständig nach meinen Rezepten fragen. Anstatt jedes Mal die gleichen Rezepte rauszusuchen und zu verschicken, habe ich beschlossen, diese Seite als zentrale Anlaufstelle zu erstellen. Hier sammle ich alle meine Lieblingsrezepte – quasi als meine persönliche Rezeptedatenbank.</p>
             <br />
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quisquam sed velit magni vel repellat amet a ipsa, enim odio veniam laborum eligendi reiciendis deleniti numquam atque quo. Id qui ducimus amet repellendus debitis explicabo unde, ipsa at voluptatem in, quidem quos, deleniti voluptas accusantium impedit voluptate eius illum rerum reiciendis? Sint, iusto! Tenetur voluptatem aliquid vitae doloremque amet velit eum explicabo ratione natus quam facere dolorum, consequuntur soluta sunt quasi reiciendis fugiat officia animi adipisci quos inventore iure vel error? Numquam reiciendis voluptatibus, aliquid repudiandae itaque dolorum minus voluptatum, ratione quia beatae sed nemo inventore cupiditate corrupti. Illo, necessitatibus!</p>
+            <p>Die Seite ist ein Portfoliostück und wurde mit viel Liebe zum Detail entwickelt. Technisch gesehen basiert sie auf React und Typescript, während im Hintergrund eine Supabase-Datenbank mit PostgreSQL zum Einsatz kommt. Das Styling wurde mit Tailwind CSS realisiert.</p>
             <br />
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate doloribus repudiandae minima eligendi officiis laudantium dolorem error voluptatum. Quaerat voluptas fugit, veniam perspiciatis dolorum nemo laboriosam culpa quidem adipisci quod.</p>
+            <p>Momentan bin ich der einzige, der sich einloggen und neue Rezepte hinzufügen kann. Aber wer weiß, vielleicht wird das ja irgendwann anders...</p>
             <br />
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, minus.</p>
+            <p>Das Design ist noch nicht in Stein gemeißelt und kann sich in Zukunft noch ändern. Auch der Name der Webseite ist noch nicht final.</p>
+            <br />
+            <p>Ich habe einfach Spaß daran, an dieser Seite zu coden und sie stetig zu erweitern. Schaut also gerne öfter mal vorbei und lasst euch von meinen Rezepten inspirieren!</p>
+            <br />
+            <p>Die Seite ist noch im Aufbau.</p>
         </article>
         </>
     )

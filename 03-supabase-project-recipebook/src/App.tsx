@@ -8,7 +8,7 @@ import AboutMe from "./pages/AboutMe"
 import Login from "./pages/Login"
 import RecipeCreatePage from "./pages/RecipeCreatePage"
 import { UserContextProvider } from "./context/userContext"
-
+import RegistrationPage from "./pages/RegistrationPage"
 
 const router = createBrowserRouter([
   {
@@ -38,6 +38,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      {
+        path: "/registrierung",
+        element: <RegistrationPage />,
+      }
     ],
   },
 ]);
