@@ -23,7 +23,7 @@ export default function RecipeCreatePage() {
   const [recipe, setRecipe] = useState({
     name: "",
     description_long: "",
-    servings: 2,
+    servings: Number("Portionen"),
     instructions: "",
   });
 
@@ -32,6 +32,7 @@ export default function RecipeCreatePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    //Category_Id ... wie stelle ich ein ob Frühstück, Mittag, Abendessen oder Dessert? ... 
     const recipeResult = await supabase
       .from("recipes")
       .insert({
@@ -43,7 +44,7 @@ export default function RecipeCreatePage() {
       .single();
 
     if (recipeResult.error) {
-      alert("Something went wrong");
+      alert("Fehler!");
       return;
     }
 
@@ -60,11 +61,11 @@ export default function RecipeCreatePage() {
     );
 
     if (ingredientsResult.error) {
-      alert("Sorry, no Ingredients for you!");
+      alert("Sorry, keine Zutaten für dich!");
       return;
     }
     // navigate to homepage if recipe insertion was successfull
-    navigate(`/recipes/${slugify(recipe.name, {lower: true})}/${newRecipeId}`)
+    navigate(`/rezepte/${slugify(recipe.name, {lower: true})}/${newRecipeId}`)
   };
 
   const addIngredient = () => {
@@ -74,8 +75,8 @@ export default function RecipeCreatePage() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>New Recipe</h1>
-      <button>Submit</button>
+      <h1>Neues Rezept</h1>
+      <button>Einreichen</button>
       <br />
       <br />
       <input
@@ -85,7 +86,7 @@ export default function RecipeCreatePage() {
         onChange={(e) =>
           setRecipe((prev) => ({ ...prev, name: e.target.value }))
         }
-        placeholder="name"
+        placeholder="Name des Gerichts"
       />
       <br />
       <input
@@ -94,7 +95,7 @@ export default function RecipeCreatePage() {
         onChange={(e) =>
           setRecipe((prev) => ({ ...prev, description: e.target.value }))
         }
-        placeholder="description"
+        placeholder="Beschreibung"
       />
       <br />
       <input
@@ -103,7 +104,7 @@ export default function RecipeCreatePage() {
         onChange={(e) =>
           setRecipe((prev) => ({ ...prev, instructions: e.target.value }))
         }
-        placeholder="instructions"
+        placeholder="Zubereitung"
       />
       <br />
       <input
@@ -112,13 +113,13 @@ export default function RecipeCreatePage() {
         onChange={(e) =>
           setRecipe((prev) => ({ ...prev, servings: Number(e.target.value) }))
         }
-        placeholder="servings"
+        placeholder="Portionen"
       />
       <br />
       <div>
-        <h3>Ingredients</h3>
+        <h3>Zutaten</h3>
         <button type="button" onClick={addIngredient}>
-          Add Ingredient
+          Zutat hinzufügen
         </button>
         <div>
           {ingredients.map((ingredient, index) => {
@@ -131,7 +132,7 @@ export default function RecipeCreatePage() {
                     ingredientsDraft[index].name = e.target.value
                   })))
                   }
-                  placeholder="name"
+                  placeholder="Zutat"
                 />
                 <input
                   type="text"
@@ -140,7 +141,7 @@ export default function RecipeCreatePage() {
                     ingredientsDraft[index].unit = e.target.value
                   })))
                   }
-                  placeholder="unit"
+                  placeholder="Einheit"
                 />
                 <input
                   type="number"
@@ -149,7 +150,7 @@ export default function RecipeCreatePage() {
                     ingredientsDraft[index].quantity = Number(e.target.value)
                   })))
                   }
-                  placeholder="quantity"
+                  placeholder="Menge"
                 />
                 <input
                   type="text"
@@ -158,7 +159,7 @@ export default function RecipeCreatePage() {
                     ingredientsDraft[index].additionalInfo = e.target.value
                   })))
                   }
-                  placeholder="additionalInfo"
+                  placeholder="Zusätzliche Information"
                 />
               </div>
             );
