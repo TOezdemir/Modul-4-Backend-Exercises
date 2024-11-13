@@ -4,8 +4,8 @@
 export default function AboutMe(){
     return(
         <>
-        <article className="font-light text-xl my-16">
-            <h1>Willkommen auf meiner persönlichen Rezeptsammlung!</h1>
+        <article className="font-light text-base md:text-xl  mx-4 md:mx-auto max-w-4x1 my-16">
+            <h1 className="text-2xl md:text-4x1 font-bold mb-4">Willkommen auf meiner persönlichen Rezeptsammlung!</h1>
             <br />
             <p>Diese Webseite entstand, weil meine Freunde mich ständig nach meinen Rezepten fragen. Anstatt jedes Mal die gleichen Rezepte rauszusuchen und zu verschicken, habe ich beschlossen, diese Seite als zentrale Anlaufstelle zu erstellen. Hier sammle ich alle meine Lieblingsrezepte – quasi als meine persönliche Rezeptedatenbank.</p>
             <br />

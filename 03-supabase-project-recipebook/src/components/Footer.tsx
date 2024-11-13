@@ -4,14 +4,12 @@ import { SocialIcon } from "react-social-icons";
 export default function Footer() {
   return (
     <footer className="bg-yellow-400 h-48 py-8 flex flex-col items-center justify-center">
-      <div className="container px-60 mx-auto flex justify-between items-center mb-4">
-
-        <NavLink to="/" className="flex items-center">
-          {/* <img src="../img/Icon.png" alt="Logo" className="h-8 mr-2" /> */}
+      <div className="container mx-auto px-4 md:px-60 flex flex-col md:flex-row items-center justify-between mb-4"> {/* px-4 und flex-col hinzugefügt */}
+        <NavLink to="/" className="flex items-center mb-4 md:mb-0">
           <span className="font-normal text-4xl">WG: Rezepte</span>
         </NavLink>
-
-        <div className="flex flex-col">
+  
+        <div className="flex flex-col items-center md:items-start">
           <span className="font-normal text-xl text-gray-800 mb-4">Social Media</span>
           <nav className="flex space-x-6">
             <a href="https://www.instagram.com/" target="_blank">

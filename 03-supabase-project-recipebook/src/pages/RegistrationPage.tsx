@@ -26,8 +26,8 @@ export default function RegistrationPage() {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-xl my-10">Registrierung</h1>
+    <div className="flex flex-col items-center px-4">
+      <h1 className="text-xl md:text-2xl my-10">Registrierung</h1>
       <form 
       onSubmit={handleSubmit}
       className="flex flex-col gap-4"
