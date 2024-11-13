@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { produce } from "immer";
 import { useNavigate } from "react-router-dom";
 import slugify from "slugify";
 import { supabase } from "../lib/supabaseClient";
+import { QueryData } from "@supabase/supabase-js";
+
+//  To DO
+// 1. Alle Kategorien fetchen
+// 2. HTML Select Feld bauen mit gefetchten Daten
+// 3. Ausgewählte Kategorie ID in einem State speichern 
+// 4. State schreiben, State mit Insert verbinden!
 
 type Ingredient = {
   name: string;
@@ -20,12 +27,28 @@ const emptyIngredient: Ingredient = {
 
 export default function RecipeCreatePage() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [categories, setCategories] = useState<CategoryData>([])
   const [recipe, setRecipe] = useState({
     name: "",
     description_long: "",
-    servings: Number("Portionen"),
+    servings: 2,
     instructions: "",
+    category_id: ""
   });
+
+  console.log(recipe)
+
+  type CategoryData = QueryData<ReturnType<typeof getAllCategories>>
+
+  const getAllCategories = async () =>{
+    const result = await supabase.from("categories").select("*")
+    console.log(result.data)
+    return result
+  }
+
+  useEffect(()=>{
+    getAllCategories().then((result)=> setCategories(result.data || []))
+  }, [])
 
   const navigate  = useNavigate()
 
@@ -37,14 +60,15 @@ export default function RecipeCreatePage() {
       .from("recipes")
       .insert({
         ...recipe,
-        description_short: "",
-        category_id: "9dac3077-02b6-4769-80ed-2420ef73b04f"
+        description_long: "",
+        description_short: ""
       })
       .select("id")
       .single();
 
     if (recipeResult.error) {
-      alert("Fehler!");
+      alert("Fehler!")
+      console.error(recipeResult.error);
       return;
     }
 
@@ -64,8 +88,7 @@ export default function RecipeCreatePage() {
       alert("Sorry, keine Zutaten für dich!");
       return;
     }
-    // navigate to homepage if recipe insertion was successfull
-    navigate(`/rezepte/${slugify(recipe.name, {lower: true})}/${newRecipeId}`)
+    navigate(`/rezept/${slugify(recipe.name, {lower: true})}/${newRecipeId}`)
   };
 
   const addIngredient = () => {
@@ -93,7 +116,7 @@ export default function RecipeCreatePage() {
         type="text"
         value={recipe.description_long}
         onChange={(e) =>
-          setRecipe((prev) => ({ ...prev, description: e.target.value }))
+          setRecipe((prev) => ({ ...prev, description_long: e.target.value }))
         }
         placeholder="Beschreibung"
       />
@@ -115,6 +138,17 @@ export default function RecipeCreatePage() {
         }
         placeholder="Portionen"
       />
+      <br />
+      <select 
+        value={recipe.category_id}
+        onChange={(e) =>
+          setRecipe((prev) => ({ ...prev, category_id: e.target.value }))
+        } 
+        name="" id="">
+         {categories.map((e)=>(
+          <option key={e.id} value={e.id}>{e.name}</option>
+         ))}
+      </select>
       <br />
       <div>
         <h3>Zutaten</h3>

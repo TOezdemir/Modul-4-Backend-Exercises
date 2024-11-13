@@ -1,34 +1,61 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, ElementRef } from "react";
 import { supabase } from "../lib/supabaseClient";
 import type { QueryData } from "@supabase/supabase-js";
 import FeaturedRecipes from "../components/FeaturedRecipes";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 
+
+export default function Recipes(){
+
+type GetAllRecipesData = QueryData<ReturnType<typeof getAllRecipes>>
+
 const getAllRecipes = async () =>{
     const result = await supabase
     .from("recipes")
     .select("*")
+    .like("name", `%${searchText}%`)
     console.log({data: result.data})
     console.log("Response:",{result})
     return result
   }
-  
-  type GetAllRecipesData = QueryData<ReturnType<typeof getAllRecipes>>
-  
-export default function Recipes(){
+
     const [recipes, setRecipes] = useState<GetAllRecipesData>([])
+    const [searchText, setSearchText] = useState("")
+    const inputRef = useRef<ElementRef<"input">>(null)
 
     useEffect(() => {
       getAllRecipes().then((result) => {
         setRecipes(result.data ?? []);
       });
-    }, []);
+    }, [searchText]);
+
+    const handleSearch: React.FormEventHandler<HTMLFormElement> = (e) => {
+      e.preventDefault()
+      const value = inputRef.current?.value || ""
+      setSearchText(value)
+      console.log(searchText)
+    }
   
     return(
       <>
         <FeaturedRecipes/>
-        <div className="container mx-auto py-12">
+        <div className="container mx-auto">
+        <form 
+        onSubmit={handleSearch}
+        className="flex items-center justify-center mb-8"
+        >
+          <input 
+          ref={inputRef} 
+          type="text"
+          className="border border-gray-400 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 mr-4 w-full max-w-xs" />
+          <button
+          className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          >Suche
+          </button>
+        </form>
+        </div>
+        <div className="container mx-auto py-4">
         <h2 className="text-3xl font-bold mb-8 text-center">
           Rezepte:
         </h2>
@@ -48,8 +75,8 @@ export default function Recipes(){
               
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{recipe.name}</h3>
-                <p className="text-black">{recipe.description_short}</p>
-                <Link to={`/rezept/${slugify(recipe.name, {lower: true})}/${recipe.id}`} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4 absolute bottom-4 left-4">
+                <p className="text-base text-black">{recipe.description_short}</p>
+                <Link to={`/rezept/${slugify(recipe.name, {lower: true})}/${recipe.id}`} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-4 rounded mt-4 absolute bottom-4 left-4">
                   Zum Rezept
                 </Link>
               </div>

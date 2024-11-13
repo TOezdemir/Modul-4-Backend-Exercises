@@ -82,10 +82,10 @@ export default function FeaturedRecipes() {
             
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-2">{recipe.name}</h3>
-              <p className="text-black">{recipe.description_short}</p>
+              <p className="text-base text-black">{recipe.description_short}</p>
               <Link 
               to={`/rezept/${slugify(recipe.name, {lower: true})}/${recipe.id}`} 
-              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4 absolute bottom-4 left-4"
+              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-4 rounded mt-4 absolute bottom-4 left-4"
               >
                 Zum Rezept
               </Link>
