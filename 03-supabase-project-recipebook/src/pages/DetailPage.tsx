@@ -63,8 +63,8 @@ export default function DetailPage(){
                 <div>
                     <h2 className="text-2xl font-semibold mb-2">Zubereitung</h2>
                     <p>
-                        {singleRecipe?.instructions.split("")}
-                    </p>
+                        {singleRecipe?.instructions}
+                    </p> 
                 </div>
             </section>
             </div>

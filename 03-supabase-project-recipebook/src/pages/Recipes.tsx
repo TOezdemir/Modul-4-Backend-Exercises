@@ -44,7 +44,8 @@ const getAllRecipes = async () =>{
       setSearchText("")
     }
 
-  
+    // const imageURL = getStorageURL()
+    
     return(
       <>
       {/* <Hero/> */}
@@ -87,7 +88,7 @@ const getAllRecipes = async () =>{
               {/* && fragt nur nach Wahrheit ab - benötigt keinen "else" */}
               {recipe.image_url && 
               <img
-                src={recipe.image_url}
+                src={"https://cacqqtzpnxhklbpxclmg.supabase.co/storage/v1/object/public/" + recipe.image_url}
                 alt={recipe.name}
                 className="w-full h-48 object-cover"
               />}
