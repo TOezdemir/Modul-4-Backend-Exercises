@@ -42,8 +42,7 @@ export default function Header(){
             <NavLink to="/" className="font-bold hover:text-gray-600 block md:inline">Home</NavLink>
             <NavLink to="/rezepte" className="font-bold hover:text-gray-600 block md:inline">Rezepte</NavLink>
             <NavLink to="/ueber-die-seite" className="font-bold hover:text-gray-600 block md:inline">Über die Seite!</NavLink>
-            {!user && <NavLink to="/Login" className="font-bold hover:text-gray-600 block md:inline">Login</NavLink>}
-            {!user && <NavLink to="/registrierung" className="font-bold hover:text-gray-600 block md:inline">Registrierung</NavLink>}
+            {!user && <NavLink to="/Login" className="font-bold hover:text-gray-600 block md:inline">Anmelden / Registrieren</NavLink>}
             {user && <NavLink to="/neues-rezept-anlegen" className="font-bold hover:text-gray-600 block md:inline">Neues Rezept!</NavLink>}
             {user && <button onClick={handleLogoutClick} className="font-bold hover:text-gray-600 block md:inline">Ausloggen</button>}
           </nav>
