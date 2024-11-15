@@ -16,7 +16,7 @@ type Ingredient = {
 const emptyIngredient: Ingredient = {
   name: "",
   unit: "",
-  quantity: 1,
+  quantity: Number(""),
   additionalInfo: "",
 };
 
@@ -103,126 +103,180 @@ export default function RecipeCreatePage() {
     setIngredients((prev) => [...prev, emptyIngredient]);
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <h1>Neues Rezept</h1>
-      <button>Einreichen</button>
-      <br />
-      <br />
-      <input
-        type="text"
-        value={recipe.name}
-        required
-        onChange={(e) =>
-          setRecipe((prev) => ({ ...prev, name: e.target.value }))
-        }
-        placeholder="Name des Gerichts"
-      />
-      <br />
-      <input
-        type="text"
-        value={recipe.description_long}
-        required
-        onChange={(e) =>
-          setRecipe((prev) => ({ ...prev, description_long: e.target.value }))
-        }
-        placeholder="Beschreibung"
-      />
-      <br />
-      <input
-        type="text"
-        value={recipe.instructions}
-        required
-        onChange={(e) =>
-          setRecipe((prev) => ({ ...prev, instructions: e.target.value }))
-        }
-        placeholder="Zubereitung"
-      />
-      <br />
-      <input
-        type="number"
-        value={recipe.servings}
-        required
-        onChange={(e) =>
-          setRecipe((prev) => ({ ...prev, servings: Number(e.target.value) }))
-        }
-        placeholder="Portionen"
-      />
-      <br />
-      <input
-      name="image"
-      type="file"
-      accept="image/*"
-      placeholder="Bild URL"
-      ref={fileInputRef}
-      />
-      <br />
-      <select 
-        value={recipe.category_id}
-        required
-        onChange={(e) =>
-          setRecipe((prev) => ({ ...prev, category_id: e.target.value }))
-        } 
-        name="" id="">
-          <option value="">Wähle aus</option>
-         {categories.map((e)=>(
-          <option key={e.id} value={e.id}>{e.name}</option>
-         ))}
-      </select>
-      <br />
-      <div>
-        <h3>Zutaten</h3>
-        <button type="button" onClick={addIngredient}>
-          Zutat hinzufügen
-        </button>
-        <div>
-          {ingredients.map((ingredient, index) => {
-            return (
-              <div key={index}>
-                <input
-                  type="text"
-                  value={ingredient.name}
-                  required
-                  onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
-                    ingredientsDraft[index].name = e.target.value
-                  })))
-                  }
-                  placeholder="Zutat"
-                />
-                <input
-                  type="text"
-                  value={ingredient.unit}
-                  required
-                  onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
-                    ingredientsDraft[index].unit = e.target.value
-                  })))
-                  }
-                  placeholder="Einheit"
-                />
-                <input
-                  type="number"
-                  value={ingredient.quantity}
-                  required
-                  onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
-                    ingredientsDraft[index].quantity = Number(e.target.value)
-                  })))
-                  }
-                  placeholder="Menge"
-                />
-                <input
-                  type="text"
-                  value={ingredient.additionalInfo}
-                  onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
-                    ingredientsDraft[index].additionalInfo = e.target.value
-                  })))
-                  }
-                  placeholder="Zusätzliche Information"
-                />
-              </div>
-            );
-          })}
-        </div>
+  return(
+    <form onSubmit={handleSubmit} className="font-sans p-6">
+    <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold mb-6 text-center">Neues Rezept</h1>
+      <div className="mb-4">
+        <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Name des Gerichts:</label>
+        <input
+          type="text"
+          value={recipe.name}
+          required
+          onChange={(e) =>
+            setRecipe((prev) => ({ ...prev, name: e.target.value }))
+          }
+          placeholder="Name des Gerichts"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+
+        />
       </div>
+      <div className="mb-4">
+        <label htmlFor="description_long" className="block text-gray-700 font-medium mb-2">Beschreibung:</label>
+        <input
+          type="text"
+          value={recipe.description_long}
+          required
+          onChange={(e) =>
+            setRecipe((prev) => ({ ...prev, description_long: e.target.value }))
+          }
+          placeholder="Beschreibung"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+
+        />
+      </div>
+      <div className="mb-4">
+      <label htmlFor="instructions" className="block text-gray-700 font-medium mb-2">Zubereitung:</label>
+        <input
+          type="text"
+          value={recipe.instructions}
+          required
+          onChange={(e) =>
+            setRecipe((prev) => ({ ...prev, instructions: e.target.value }))
+          }
+          placeholder="Zubereitung"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="servings" className="block text-gray-700 font-medium mb-2">Portionen:</label>
+        <input
+          type="number"
+          value={recipe.servings}
+          required
+          onChange={(e) =>
+            setRecipe((prev) => ({ ...prev, servings: Number(e.target.value) }))
+          }
+          placeholder="Portionen"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="image" className="block text-gray-700 font-medium mb-2">Bild URL:</label>
+        <input
+          name="image"
+          type="file"
+          accept="image/*"
+          placeholder="Bild URL"
+          ref={fileInputRef}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="category" className="block text-gray-700 font-medium mb-2">Kategorie:</label>
+        <select
+          value={recipe.category_id}
+          required
+          onChange={(e) =>
+            setRecipe((prev) => ({ ...prev, category_id: e.target.value }))
+          }
+          name=""
+          id=""
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        >
+          <option
+            value="">Wähle aus</option>
+            {categories.map((e) => (
+          <option key={e.id} value={e.id}>
+            {e.name}
+          </option>
+          ))}
+        </select>
+      </div>
+      <div className="mb-4">
+        <h3>Zutaten</h3>
+          <button type="button" onClick={addIngredient} className="bg-yellow-400 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Zutat hinzufügen
+          </button>
+      <div>
+        {ingredients.map((ingredient, index) => {
+          return (
+            <div key={index} className="mt-2">
+              <label htmlFor="ingredient" className="block text-gray-700 font-medium mb-2">Zutat:</label>
+              <input
+                type="text"
+                value={ingredient.name}
+                required
+                onChange={(e) =>
+                  setIngredients(
+                    (oldIngredients) =>
+                      produce(oldIngredients, (ingredientsDraft) => {
+                        ingredientsDraft[index].name = e.target.value;
+                      })
+                  )
+                }
+                placeholder="Zutat"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
+              />
+              <label htmlFor="unit" className="block text-gray-700 font-medium mb-2">Einheit:</label>
+              <input
+                type="text"
+                value={ingredient.unit}
+                required
+                onChange={(e) =>
+                  setIngredients(
+                    (oldIngredients) =>
+                      produce(oldIngredients, (ingredientsDraft) => {
+                        ingredientsDraft[index].unit = e.target.value;
+                      })
+                  )
+                }
+                placeholder="Einheit"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
+              />
+              <label htmlFor="quantity" className="block text-gray-700 font-medium mb-2">Menge:</label>
+              <input
+                type="number"
+                value={ingredient.quantity}
+                required
+                onChange={(e) =>
+                  setIngredients(
+                    (oldIngredients) =>
+                      produce(oldIngredients, (ingredientsDraft) => {
+                        ingredientsDraft[index].quantity = Number(e.target.value);
+                      })
+                  )
+                }
+                placeholder="Menge"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
+              />
+              <label htmlFor="additionalInfo" className="block text-gray-700 font-medium mb-2">Zusätzliche Information:</label>
+              <input
+                type="text"
+                value={ingredient.additionalInfo}
+                onChange={(e) =>
+                  setIngredients(
+                    (oldIngredients) =>
+                      produce(oldIngredients, (ingredientsDraft) => {
+                        ingredientsDraft[index].additionalInfo = e.target.value;
+                      })
+                  )
+                }
+                placeholder="Zusätzliche Information"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+    <button
+      type="submit"
+      className="bg-yellow-400 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+    >
+      Einreichen
+    </button>
+    </div>
     </form>
-  );
+  )
 }
