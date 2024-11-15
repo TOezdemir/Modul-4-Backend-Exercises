@@ -2,6 +2,7 @@ import { useState } from "react"
 import { supabase } from "../lib/supabaseClient"
 import { useUserContext } from "../context/userContext"
 import { useNavigate } from "react-router-dom"
+// import Hero from "../components/Hero"
 
 
 export default function Login(){
@@ -22,6 +23,8 @@ export default function Login(){
     }
 
     return(
+        <>
+        {/* <Hero/> */}
         <div className="flex flex-col items-center px-4">
             <h1 className="text-xl md:text-2xl my-10">Login</h1>
             <form 
@@ -52,5 +55,6 @@ export default function Login(){
                 </button>
             </form>
         </div>
+        </>
     )
 }

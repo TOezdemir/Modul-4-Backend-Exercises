@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useUserContext } from "../context/userContext";
+// import Hero from "../components/Hero";
 
 export default function RegistrationPage() {
   const [email, setEmail] = useState("");
@@ -26,6 +27,8 @@ export default function RegistrationPage() {
   };
 
   return (
+    <>
+    {/* <Hero/> */}
     <div className="flex flex-col items-center px-4">
       <h1 className="text-xl md:text-2xl my-10">Registrierung</h1>
       <form 
@@ -75,5 +78,6 @@ export default function RegistrationPage() {
         Registrieren</button>
       </form>
     </div>
-  );
+    </>
+  )
 }

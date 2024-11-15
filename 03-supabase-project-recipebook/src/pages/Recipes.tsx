@@ -4,6 +4,7 @@ import type { QueryData } from "@supabase/supabase-js";
 // import FeaturedRecipes from "../components/FeaturedRecipes";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
+// import Hero from "../components/Hero";
 
 
 export default function Recipes(){
@@ -28,6 +29,7 @@ const getAllRecipes = async () =>{
       getAllRecipes().then((result) => {
         setRecipes(result.data ?? []);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchText]);
 
     const handleSearch: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -45,6 +47,7 @@ const getAllRecipes = async () =>{
   
     return(
       <>
+      {/* <Hero/> */}
         {/* <FeaturedRecipes/> */}
         <div className="container mx-auto">
         <form 

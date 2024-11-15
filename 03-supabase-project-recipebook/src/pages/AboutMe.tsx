@@ -1,9 +1,11 @@
+// import Hero from "../components/Hero";
 
 
 
 export default function AboutMe(){
     return(
         <>
+        {/* <Hero/> */}
         <article className="font-light text-base md:text-xl  mx-4 md:mx-auto max-w-4x1 my-16">
             <h1 className="text-2xl md:text-4x1 font-bold mb-4">Willkommen auf meiner persönlichen Rezeptsammlung!</h1>
             <br />

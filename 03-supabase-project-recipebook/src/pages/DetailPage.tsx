@@ -41,23 +41,33 @@ export default function DetailPage(){
     console.log(singleRecipe)
 
     return(
-        <div>
+        <div className="p-6 ">
+            <div className="max-w-4xl mx-5 p-8">
             {/* Wie Bild hier einfügen?! */}
-            <h1 className="mb-4 text-4xl">{singleRecipe?.name}</h1>
-            <section>
-                <p>{singleRecipe?.description_long}</p>
-                <p>Zutaten</p>
-                <div>{singleRecipe?.ingredients.map((e)=>(
-                    <div key={e.id}>
-                        <p>{e.name}</p>
-                    </div>
-                ))}</div>
-
-                <p>Zubereitung</p>
-                <div>{singleRecipe?.instructions}</div>
+            <h1 className="mb-4 text-4xl font-bold text-center">{singleRecipe?.name}</h1>
+            <section className="space-y-4">
+                <p className="text-gray-700">{singleRecipe?.description_long}</p>
+                <div>
+                    <h2 className="text-2xl font-semibold mb-2">Zutaten</h2>
+                    <ul className="list-disc list-inside">
+                        {singleRecipe?.ingredients.map((e)=>(
+                            <li key={e.id} className="mb-2">
+                                <span className="font-medium">{e.name}, {e.quantity} {e.unit}</span>
+                                {e.additional_info && (
+                                    <span className="text-gray-600 ml-2">{e.additional_info}</span>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div>
+                    <h2 className="text-2xl font-semibold mb-2">Zubereitung</h2>
+                    <p>
+                        {singleRecipe?.instructions.split("")}
+                    </p>
+                </div>
             </section>
-
-
+            </div>
         </div>
     )
 }
