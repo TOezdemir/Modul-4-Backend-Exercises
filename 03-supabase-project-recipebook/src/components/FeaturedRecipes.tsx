@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { getStorageURL, supabase } from "../lib/supabaseClient";
 import type { QueryData } from "@supabase/supabase-js";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
-
 
 const getFeaturedRecipes = async () => {
   const result = await supabase
@@ -75,7 +74,7 @@ export default function FeaturedRecipes() {
             {/* && fragt nur nach Wahrheit ab - benötigt keinen "else" */}
             {recipe.image_url && 
             <img
-              src={recipe.image_url}
+              src={getStorageURL(recipe.image_url) || "https://placehold.co/320x192" }
               alt={recipe.name}
               className="w-full h-48 object-cover"
             />}
