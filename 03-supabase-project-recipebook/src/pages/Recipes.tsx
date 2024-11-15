@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef, ElementRef } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { getStorageURL, supabase } from "../lib/supabaseClient";
 import type { QueryData } from "@supabase/supabase-js";
 // import FeaturedRecipes from "../components/FeaturedRecipes";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 // import Hero from "../components/Hero";
-
 
 export default function Recipes(){
 
@@ -43,8 +42,6 @@ const getAllRecipes = async () =>{
       inputRef.current!.value = ""
       setSearchText("")
     }
-
-    // const imageURL = getStorageURL()
     
     return(
       <>
@@ -88,7 +85,7 @@ const getAllRecipes = async () =>{
               {/* && fragt nur nach Wahrheit ab - benötigt keinen "else" */}
               {recipe.image_url && 
               <img
-                src={"https://cacqqtzpnxhklbpxclmg.supabase.co/storage/v1/object/public/" + recipe.image_url}
+                src={getStorageURL(recipe.image_url) || "https://placehold.co/320x192"}
                 alt={recipe.name}
                 className="w-full h-48 object-cover"
               />}

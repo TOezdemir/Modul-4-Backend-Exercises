@@ -62,7 +62,7 @@ export default function DetailPage(){
                 </div>
                 <div>
                     <h2 className="text-2xl font-semibold mb-2">Zubereitung</h2>
-                    <p>
+                    <p className="whitespace-pre-line">
                         {singleRecipe?.instructions}
                     </p> 
                 </div>

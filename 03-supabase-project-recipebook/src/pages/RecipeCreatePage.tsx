@@ -16,7 +16,7 @@ type Ingredient = {
 const emptyIngredient: Ingredient = {
   name: "",
   unit: "",
-  quantity: 0,
+  quantity: 1,
   additionalInfo: "",
 };
 
@@ -87,7 +87,7 @@ export default function RecipeCreatePage() {
         name: element.name,
         additional_info: element.additionalInfo,
         unit: element.unit,
-        quantity: 0,
+        quantity: element.quantity,
         recipe_id: newRecipeId
       }))
     );
