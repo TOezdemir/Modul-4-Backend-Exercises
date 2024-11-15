@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { produce } from "immer";
 import { useNavigate } from "react-router-dom";
 import slugify from "slugify";
 import { supabase } from "../lib/supabaseClient";
 import { QueryData } from "@supabase/supabase-js";
-
-//  To DO
-// 1. Alle Kategorien fetchen
-// 2. HTML Select Feld bauen mit gefetchten Daten
-// 3. Ausgewählte Kategorie ID in einem State speichern 
-// 4. State schreiben, State mit Insert verbinden!
+import { useUserContext } from "../context/userContext";
 
 type Ingredient = {
   name: string;
@@ -26,6 +21,9 @@ const emptyIngredient: Ingredient = {
 };
 
 export default function RecipeCreatePage() {
+  const { user } = useUserContext()
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  // const [recipePath, setRecipePath] = useState<string | undefined>("")
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [categories, setCategories] = useState<CategoryData>([])
   const [recipe, setRecipe] = useState({
@@ -35,8 +33,6 @@ export default function RecipeCreatePage() {
     instructions: "",
     category_id: ""
   });
-
-  console.log(recipe)
 
   type CategoryData = QueryData<ReturnType<typeof getAllCategories>>
 
@@ -54,14 +50,26 @@ export default function RecipeCreatePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    let imagePath: string | null = null
 
-    //Category_Id ... wie stelle ich ein ob Frühstück, Mittag, Abendessen oder Dessert? ... 
+    if(!user) {return}
+    const file = fileInputRef.current?.files?.[0] || null
+
+    if(file){
+      const uploadResult = await supabase.storage
+        .from("recipe_image")
+        .upload(`${user?.id}/${crypto.randomUUID()}`, file, {upsert: true})
+      imagePath = uploadResult.data?.fullPath || null
+    }
+
     const recipeResult = await supabase
       .from("recipes")
       .insert({
         ...recipe,
         description_long: "",
-        description_short: ""
+        description_short: "",
+        image_url: imagePath
       })
       .select("id")
       .single();
@@ -80,7 +88,7 @@ export default function RecipeCreatePage() {
         additional_info: element.additionalInfo,
         unit: element.unit,
         quantity: 0,
-        recipe_id: newRecipeId,
+        recipe_id: newRecipeId
       }))
     );
 
@@ -94,7 +102,6 @@ export default function RecipeCreatePage() {
   const addIngredient = () => {
     setIngredients((prev) => [...prev, emptyIngredient]);
   };
-  console.log(ingredients);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -115,6 +122,7 @@ export default function RecipeCreatePage() {
       <input
         type="text"
         value={recipe.description_long}
+        required
         onChange={(e) =>
           setRecipe((prev) => ({ ...prev, description_long: e.target.value }))
         }
@@ -124,6 +132,7 @@ export default function RecipeCreatePage() {
       <input
         type="text"
         value={recipe.instructions}
+        required
         onChange={(e) =>
           setRecipe((prev) => ({ ...prev, instructions: e.target.value }))
         }
@@ -133,18 +142,29 @@ export default function RecipeCreatePage() {
       <input
         type="number"
         value={recipe.servings}
+        required
         onChange={(e) =>
           setRecipe((prev) => ({ ...prev, servings: Number(e.target.value) }))
         }
         placeholder="Portionen"
       />
       <br />
+      <input
+      name="image"
+      type="file"
+      accept="image/*"
+      placeholder="Bild URL"
+      ref={fileInputRef}
+      />
+      <br />
       <select 
         value={recipe.category_id}
+        required
         onChange={(e) =>
           setRecipe((prev) => ({ ...prev, category_id: e.target.value }))
         } 
         name="" id="">
+          <option value="">Wähle aus</option>
          {categories.map((e)=>(
           <option key={e.id} value={e.id}>{e.name}</option>
          ))}
@@ -162,6 +182,7 @@ export default function RecipeCreatePage() {
                 <input
                   type="text"
                   value={ingredient.name}
+                  required
                   onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
                     ingredientsDraft[index].name = e.target.value
                   })))
@@ -171,6 +192,7 @@ export default function RecipeCreatePage() {
                 <input
                   type="text"
                   value={ingredient.unit}
+                  required
                   onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
                     ingredientsDraft[index].unit = e.target.value
                   })))
@@ -180,6 +202,7 @@ export default function RecipeCreatePage() {
                 <input
                   type="number"
                   value={ingredient.quantity}
+                  required
                   onChange={(e) => setIngredients((oldIngredients)=>(produce(oldIngredients, (ingredientsDraft)=>{
                     ingredientsDraft[index].quantity = Number(e.target.value)
                   })))

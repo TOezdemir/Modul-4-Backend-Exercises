@@ -70,7 +70,7 @@ export default function FeaturedRecipes() {
         {recipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="bg-neutral-100 rounded-lg shadow-md overflow-hidden relative"
+            className="bg-neutral-100 rounded-lg shadow-md overflow-hidden relative min-h-[300px] md:min-h-[370px]"
           >
             {/* && fragt nur nach Wahrheit ab - benötigt keinen "else" */}
             {recipe.image_url && 

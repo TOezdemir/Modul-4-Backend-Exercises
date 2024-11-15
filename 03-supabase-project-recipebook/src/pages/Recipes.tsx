@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, ElementRef } from "react";
 import { supabase } from "../lib/supabaseClient";
 import type { QueryData } from "@supabase/supabase-js";
-import FeaturedRecipes from "../components/FeaturedRecipes";
+// import FeaturedRecipes from "../components/FeaturedRecipes";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 
@@ -36,26 +36,42 @@ const getAllRecipes = async () =>{
       setSearchText(value)
       console.log(searchText)
     }
+
+    const handleReset = () =>{
+      inputRef.current!.value = ""
+      setSearchText("")
+    }
+
   
     return(
       <>
-        <FeaturedRecipes/>
+        {/* <FeaturedRecipes/> */}
         <div className="container mx-auto">
         <form 
         onSubmit={handleSearch}
-        className="flex items-center justify-center mb-8"
+        className="relative flex items-center justify-center mb-8 gap-1 pt-10"
         >
-          <input 
-          ref={inputRef} 
-          type="text"
-          className="border border-gray-400 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 mr-4 w-full max-w-xs" />
+            <input 
+            ref={inputRef} 
+            type="text"
+            className="border border-gray-400 px-4 py-2 rounded-l-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 mr-2 w-full max-w-xs" />
+          
+            {searchText && (
+            <button onClick={handleReset}
+              type="reset"
+              className="relative right-10 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-2 rounded-s-full focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              aria-label="Suchfeld zurücksetzen"
+              >X
+            </button>)}
+          
           <button
-          className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          className=" bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
           >Suche
           </button>
+          
         </form>
         </div>
-        <div className="container mx-auto py-4">
+        <div className="container mx-auto pb-24">
         <h2 className="text-3xl font-bold mb-8 text-center">
           Rezepte:
         </h2>
@@ -63,7 +79,7 @@ const getAllRecipes = async () =>{
           {recipes.map((recipe) => (
             <div
               key={recipe.id}
-              className="bg-neutral-100 rounded-lg shadow-md overflow-hidden relative"
+              className="bg-neutral-100 rounded-lg shadow-md overflow-hidden relative min-h-[300px] md:min-h-[370px]"
             >
               {/* && fragt nur nach Wahrheit ab - benötigt keinen "else" */}
               {recipe.image_url && 
@@ -73,7 +89,7 @@ const getAllRecipes = async () =>{
                 className="w-full h-48 object-cover"
               />}
               
-              <div className="p-6">
+              <div className="px-6 pt-12 pb-16">
                 <h3 className="text-xl font-semibold mb-2">{recipe.name}</h3>
                 <p className="text-base text-black">{recipe.description_short}</p>
                 <Link to={`/rezept/${slugify(recipe.name, {lower: true})}/${recipe.id}`} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-4 rounded mt-4 absolute bottom-4 left-4">
