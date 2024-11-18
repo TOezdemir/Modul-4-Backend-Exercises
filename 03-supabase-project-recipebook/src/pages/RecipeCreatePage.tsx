@@ -29,6 +29,7 @@ export default function RecipeCreatePage() {
   const [recipe, setRecipe] = useState({
     name: "",
     description_long: "",
+    description_short: "",
     servings: 2,
     instructions: "",
     category_id: ""
@@ -67,7 +68,6 @@ export default function RecipeCreatePage() {
       .from("recipes")
       .insert({
         ...recipe,
-        description_long: "",
         description_short: "",
         image_url: imagePath
       })
@@ -123,8 +123,7 @@ export default function RecipeCreatePage() {
       </div>
       <div className="mb-4">
         <label htmlFor="description_long" className="block text-gray-700 font-medium mb-2">Beschreibung:</label>
-        <input
-          type="text"
+        <textarea
           value={recipe.description_long}
           required
           onChange={(e) =>
@@ -136,9 +135,22 @@ export default function RecipeCreatePage() {
         />
       </div>
       <div className="mb-4">
+        <label htmlFor="description_short" className="block text-gray-700 font-medium mb-2">Kurze Beschreibung:</label>
+        <textarea
+          maxLength={100}
+          value={recipe.description_short}
+          required
+          onChange={(e) =>
+            setRecipe((prev) => ({ ...prev, description_short: e.target.value }))
+          }
+          placeholder="Kurze Beschreibung"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+
+        />
+      </div>
+      <div className="mb-4">
       <label htmlFor="instructions" className="block text-gray-700 font-medium mb-2">Zubereitung:</label>
-        <input
-          type="text"
+        <textarea
           value={recipe.instructions}
           required
           onChange={(e) =>
