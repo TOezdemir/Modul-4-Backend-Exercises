@@ -19,7 +19,7 @@ export default function Header(){
     return (
       <header>
         <div className="bg-yellow-400 h-8"></div>
-        <div className="container mx-auto py-4 px-60 flex flex-col md:flex-row items-center justify-between">
+        <div className="container mx-auto py-4 flex flex-col md:flex-row items-center justify-between">
           <NavLink to="/" className="flex items-center mb-4 md:mb-0">
             <span className="font-light text-xl">WG: Rezepte</span>
           </NavLink>

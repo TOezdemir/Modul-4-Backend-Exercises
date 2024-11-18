@@ -55,18 +55,18 @@ const getAllRecipes = async () =>{
             <input 
             ref={inputRef} 
             type="text"
-            className="border border-gray-400 px-4 py-2 rounded-l-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 mr-2 w-full max-w-xs" />
+            className="border border-gray-400 px-4 py-2 rounded-l-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 mr-2 w-full max-w-xs" />
           
             {searchText && (
             <button onClick={handleReset}
               type="reset"
-              className="relative right-10 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-2 rounded-s-full focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="relative right-10 bg-yellow-400 hover:bg-yellow-600 text-white font-bold py-2 px-2 rounded-s-full focus:outline-none focus:ring-2 focus:ring-yellow-400"
               aria-label="Suchfeld zurücksetzen"
               >X
             </button>)}
           
           <button
-          className=" bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          className=" bg-yellow-400 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
           >Suche
           </button>
           
@@ -93,7 +93,7 @@ const getAllRecipes = async () =>{
               <div className="px-6 pt-12 pb-16">
                 <h3 className="text-xl font-semibold mb-2">{recipe.name}</h3>
                 <p className="text-base text-black">{recipe.description_short}</p>
-                <Link to={`/rezept/${slugify(recipe.name, {lower: true})}/${recipe.id}`} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-4 rounded mt-4 absolute bottom-4 left-4">
+                <Link to={`/rezept/${slugify(recipe.name, {lower: true})}/${recipe.id}`} className="bg-yellow-400 hover:bg-yellow-600 text-white font-bold py-1 px-4 rounded mt-4 absolute bottom-4 left-4">
                   Zum Rezept
                 </Link>
               </div>

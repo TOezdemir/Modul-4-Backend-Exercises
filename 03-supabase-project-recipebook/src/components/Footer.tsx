@@ -4,7 +4,7 @@ import { SocialIcon } from "react-social-icons";
 export default function Footer() {
   return (
     <footer className="bg-yellow-400 h-48 py-8 flex flex-col items-center justify-center">
-      <div className="container mx-auto px-4 md:px-60 flex flex-col md:flex-row items-center justify-between mb-4"> {/* px-4 und flex-col hinzugefügt */}
+      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between mb-4"> {/* px-4 und flex-col hinzugefügt */}
         <NavLink to="/" className="flex items-center mb-4 md:mb-0">
           <span className="font-normal text-4xl">WG: Rezepte</span>
         </NavLink>
