@@ -14,6 +14,7 @@ const getAllRecipes = async () =>{
     const result = await supabase
     .from("recipes")
     .select("*")
+    .order("created_at", {ascending: false})
     .like("name", `%${searchText}%`)
     console.log({data: result.data})
     console.log("Response:",{result})

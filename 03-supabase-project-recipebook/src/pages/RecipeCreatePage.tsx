@@ -68,7 +68,6 @@ export default function RecipeCreatePage() {
       .from("recipes")
       .insert({
         ...recipe,
-        description_short: "",
         image_url: imagePath
       })
       .select("id")
